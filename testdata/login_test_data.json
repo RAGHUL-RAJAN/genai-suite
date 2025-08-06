@@ -1,0 +1,187 @@
+As a QA Engineer, I've generated a comprehensive set of test input data for a login page, covering various valid, invalid, and edge cases. This data can be used for both front-end (client-side) and back-end (server-side) validation testing.
+
+```json
+[
+  {
+    "email": "user@example.com",
+    "password": "Password123!",
+    "description": "Valid credentials - standard case",
+    "is_valid": true
+  },
+  {
+    "email": "john.doe@sub.domain.co.uk",
+    "password": "ComplexP@ssw0rd$",
+    "description": "Valid credentials - complex email and password",
+    "is_valid": true
+  },
+  {
+    "email": "test-user_123@my-company.net",
+    "password": "SecurePassword#99",
+    "description": "Valid credentials - email with hyphen, underscore, numbers",
+    "is_valid": true
+  },
+  {
+    "email": "a@b.c",
+    "password": "ShortValidP@ss",
+    "description": "Valid credentials - shortest possible valid email format and password meeting length requirements",
+    "is_valid": true
+  },
+  {
+    "email": "",
+    "password": "Password123!",
+    "description": "Missing email - empty string",
+    "is_valid": false
+  },
+  {
+    "email": "user@example.com",
+    "password": "",
+    "description": "Missing password - empty string",
+    "is_valid": false
+  },
+  {
+    "email": "",
+    "password": "",
+    "description": "Missing both email and password",
+    "is_valid": false
+  },
+  {
+    "email": "invalid-email",
+    "password": "Password123!",
+    "description": "Invalid email format - no @ symbol",
+    "is_valid": false
+  },
+  {
+    "email": "user@.com",
+    "password": "Password123!",
+    "description": "Invalid email format - missing domain name",
+    "is_valid": false
+  },
+  {
+    "email": "user@domain",
+    "password": "Password123!",
+    "description": "Invalid email format - missing top-level domain (TLD)",
+    "is_valid": false
+  },
+  {
+    "email": "user@domain.c",
+    "password": "Password123!",
+    "description": "Invalid email format - TLD too short (assuming 2 char min, adjust if needed)",
+    "is_valid": false
+  },
+  {
+    "email": "user@domain..com",
+    "password": "Password123!",
+    "description": "Invalid email format - consecutive dots in domain",
+    "is_valid": false
+  },
+  {
+    "email": "user name@example.com",
+    "password": "Password123!",
+    "description": "Invalid email format - space in local part",
+    "is_valid": false
+  },
+  {
+    "email": "user@example com",
+    "password": "Password123!",
+    "description": "Invalid email format - space in domain part",
+    "is_valid": false
+  },
+  {
+    "email": "user@@example.com",
+    "password": "Password123!",
+    "description": "Invalid email format - multiple @ symbols",
+    "is_valid": false
+  },
+  {
+    "email": "user@example.com ",
+    "password": "Password123!",
+    "description": "Email with trailing space (should be trimmed or rejected)",
+    "is_valid": false
+  },
+  {
+    "email": " user@example.com",
+    "password": "Password123!",
+    "description": "Email with leading space (should be trimmed or rejected)",
+    "is_valid": false
+  },
+  {
+    "email": "user@example.com",
+    "password": "short",
+    "description": "Password too short (assuming min 8 chars)",
+    "is_valid": false
+  },
+  {
+    "email": "user@example.com",
+    "password": "ThisIsAVeryLongPasswordThatMightExceedTypicalDatabaseFieldLimitsForPasswordsButIsStillTechnicallyValidInTermsOfCharactersSoItShouldBeTruncatedOrHashedAndStoredCorrectlyIfTheSystemAllowsForSuchLengthOtherwiseItWillFailValidationAndCauseAnError",
+    "description": "Password too long (exceeds typical max length, e.g., 255 chars)",
+    "is_valid": false
+  },
+  {
+    "email": "user@example.com",
+    "password": "alllowercase",
+    "description": "Password missing uppercase (if complexity requires)",
+    "is_valid": false
+  },
+  {
+    "email": "user@example.com",
+    "password": "ALLUPPERCASE",
+    "description": "Password missing lowercase (if complexity requires)",
+    "is_valid": false
+  },
+  {
+    "email": "user@example.com",
+    "password": "NoNumbersOrSymbols",
+    "description": "Password missing numbers and symbols (if complexity requires)",
+    "is_valid": false
+  },
+  {
+    "email": "' OR 1=1; --",
+    "password": "anypassword",
+    "description": "SQL Injection attempt in email",
+    "is_valid": false
+  },
+  {
+    "email": "user@example.com",
+    "password": "' OR 1=1; --",
+    "description": "SQL Injection attempt in password",
+    "is_valid": false
+  },
+  {
+    "email": "<script>alert('xss')</script>@example.com",
+    "password": "Password123!",
+    "description": "XSS attempt in email (malicious script)",
+    "is_valid": false
+  },
+  {
+    "email": "user@example.com",
+    "password": "<script>alert('xss')</script>",
+    "description": "XSS attempt in password (malicious script)",
+    "is_valid": false
+  },
+  {
+    "email": "verylongemail" + "a".repeat(240) + "@example.com",
+    "password": "Password123!",
+    "description": "Email exceeds typical max length (e.g., 254 chars for Email)",
+    "is_valid": false
+  },
+  {
+    "email": "user@example.com",
+    "password": "پاسورد۱۲۳!@#",
+    "description": "Password with Unicode characters (non-ASCII)",
+    "is_valid": true
+  },
+  {
+    "email": "USER@EXAMPLE.COM",
+    "password": "Password123!",
+    "description": "Email in uppercase (email should be case-insensitive)",
+    "is_valid": true
+  },
+  {
+    "email": "user@example.com",
+    "password": "password123!",
+    "description": "Password with different casing than expected (password should be case-sensitive)",
+    "is_valid": true 
+    // is_valid: true because it's a valid *format*. Login will fail due to incorrect password, but not validation.
+  }
+]
+```
