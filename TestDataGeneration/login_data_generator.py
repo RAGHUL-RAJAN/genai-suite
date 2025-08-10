@@ -15,7 +15,6 @@ gen_config = {
 }
 
 # Initialize the Gemini model for test data generation
-
 Gemini = genai.GenerativeModel(model_name="gemini-2.5-flash",generation_config = gen_config)
 
 prompt = """
