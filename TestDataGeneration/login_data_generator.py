@@ -35,7 +35,6 @@ response = Gemini.generate_content(prompt)
 
 os.makedirs("testdata", exist_ok=True)
 
-
 output_path = "testdata/login_test_data.json"
 with open(output_path, "w", encoding="utf-8") as file:
     file.write(response.text)
